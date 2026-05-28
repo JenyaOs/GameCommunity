@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детектив Требований: Дело "Монолит"</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Экран приветствия -->
+        <section id="intro-screen" class="screen active">
+            <div class="folder-header">
+                <h1 class="typewriter">ДЕЛО № МОНОЛИТ</h1>
+                <p class="subtitle">Браузерная игра-детектив для бизнес-аналитиков</p>
+            </div>
+            <div class="badge-container">
+                <div class="badge">
+                    <div class="badge-photo"></div>
+                    <div class="badge-text">
+                        <span class="badge-title">ДЕТЕКТИВ-АНАЛИТИК</span>
+                        <input type="text" id="detective-name" placeholder="Детектив N13" value="Детектив N13">
+                    </div>
+                </div>
+            </div>
+            <button id="start-btn" class="btn-primary">НАЧАТЬ РАССЛЕДОВАНИЕ</button>
+        </section>
+
+        <!-- Акт 1: Сбор улик -->
+        <section id="act1-screen" class="screen">
+            <div class="act-header">
+                <h2>АКТ 1: СБОР УЛИК</h2>
+                <span class="score-display">Баллы: <span id="act1-score">0</span>/2</span>
+            </div>
+            
+            <!-- Карточка 1: Кроссворд -->
+            <div class="evidence-card" id="card-crossword">
+                <h3>Улика #1: Стенограмма</h3>
+                <p class="instruction">Найдите ключевое слово по вертикали</p>
+                <div class="crossword-grid">
+                    <div class="crossword-row">
+                        <input type="text" maxlength="1" data-row="0" data-col="0">
+                        <input type="text" maxlength="1" data-row="0" data-col="1">
+                        <input type="text" maxlength="1" data-row="0" data-col="2">
+                        <input type="text" maxlength="1" data-row="0" data-col="3">
+                        <input type="text" maxlength="1" data-row="0" data-col="4">
+                    </div>
+                    <div class="crossword-row">
+                        <input type="text" maxlength="1" data-row="1" data-col="0">
+                        <input type="text" maxlength="1" data-row="1" data-col="1">
+                        <input type="text" maxlength="1" data-row="1" data-col="2">
+                        <input type="text" maxlength="1" data-row="1" data-col="3">
+                        <input type="text" maxlength="1" data-row="1" data-col="4">
+                    </div>
+                    <div class="crossword-row">
+                        <input type="text" maxlength="1" data-row="2" data-col="0">
+                        <input type="text" maxlength="1" data-row="2" data-col="1">
+                        <input type="text" maxlength="1" data-row="2" data-col="2">
+                        <input type="text" maxlength="1" data-row="2" data-col="3">
+                        <input type="text" maxlength="1" data-row="2" data-col="4">
+                    </div>
+                    <div class="crossword-row">
+                        <input type="text" maxlength="1" data-row="3" data-col="0">
+                        <input type="text" maxlength="1" data-row="3" data-col="1">
+                        <input type="text" maxlength="1" data-row="3" data-col="2">
+                        <input type="text" maxlength="1" data-row="3" data-col="3">
+                        <input type="text" maxlength="1" data-row="3" data-col="4">
+                    </div>
+                </div>
+                <p class="hint">Слова: ДОСКА, ЕСЛИ, ЛИЦО, ОПРОС</p>
+                <button class="btn-check" onclick="checkCrossword()">ПРОВЕРИТЬ</button>
+                <div class="feedback" id="crossword-feedback"></div>
+            </div>
+
+            <!-- Карточка 2: Логическая задача -->
+            <div class="evidence-card hidden" id="card-logic">
+                <h3>Улика #2: Техартефакт</h3>
+                <p class="instruction">Расшифруйте код доступа</p>
+                <div class="logic-clues">
+                    <div class="clue"><span class="clue-code">659</span> — одно верное на месте</div>
+                    <div class="clue"><span class="clue-code">641</span> — все неверные</div>
+                    <div class="clue"><span class="clue-code">268</span> — два верных не на месте</div>
+                    <div class="clue"><span class="clue-code">917</span> — одно верное не на месте</div>
+                    <div class="clue"><span class="clue-code">758</span> — одно верное не на месте</div>
+                </div>
+                <div class="code-input">
+                    <input type="text" id="logic-code" maxlength="3" placeholder="???">
+                    <button class="btn-check" onclick="checkLogicCode()">ПРОВЕРИТЬ</button>
+                </div>
+                <div class="feedback" id="logic-feedback"></div>
+            </div>
+
+            <button class="btn-next hidden" id="act1-next" onclick="goToAct2()">ПЕРЕЙТИ К ДОСКЕ УЛИК</button>
+        </section>
+
+        <!-- Акт 2: Доска улик -->
+        <section id="act2-screen" class="screen">
+            <div class="act-header">
+                <h2>АКТ 2: ДОСКА УЛИК</h2>
+                <span class="score-display">Баллы: <span id="act2-score">0</span>/4</span>
+            </div>
+
+            <!-- Тексты для анализа -->
+            <div class="analysis-area" id="analysis-area">
+                <h3>Изучите документы</h3>
+                <div class="document-text" id="doc-transcript">
+                    <p>Стенограмма встречи с заказчиком:</p>
+                    <p>— Нам нужна <span class="clickable-phrase" data-phrase="Окупаемость за полгода">окупаемость за полгода</span>, понимаете?</p>
+                    <p>— И никаких <span class="clickable-phrase" data-phrase="Никаких валютных подписок">валютных подписок</span>, только рубли.</p>
+                    <p>— <span class="clickable-phrase" data-phrase="Бюджет минимальный">Бюджет минимальный</span>, но чтобы всё работало.</p>
+                    <p>— Хотелось бы <span class="clickable-phrase" data-phrase="ИИ-генерация писем">ИИ-генерацию писем</span> для клиентов.</p>
+                    <p>— И ещё <span class="clickable-phrase" data-phrase="20 кастомных полей">20 кастомных полей</span> для отчётности.</p>
+                    <p>— Данные должны быть <span class="clickable-phrase" data-phrase="Данные только на своём сервере">только на своём сервере</span>.</p>
+                    <p>— У нас <span class="clickable-phrase" data-phrase="Сервер слабый (2 Гб ОЗУ)">сервер слабый, всего 2 Гб ОЗУ</span>.</p>
+                    <p>— Срок: <span class="clickable-phrase damaged" data-phrase="Срок: 4 месяца">...</span> месяца до аудита.</p>
+                    <p class="decorative">Это просто деталь интерьера</p>
+                </div>
+            </div>
+
+            <!-- Доска со стикерами -->
+            <div class="evidence-board hidden" id="evidence-board">
+                <h3>Доска требований</h3>
+                <div class="board-zones">
+                    <div class="zone mandatory" data-zone="mandatory">
+                        <h4>Жёсткие требования</h4>
+                        <div class="zone-slots"></div>
+                    </div>
+                    <div class="zone wishes" data-zone="wishes">
+                        <h4>Пожелания</h4>
+                        <div class="zone-slots"></div>
+                    </div>
+                    <div class="zone trash" data-zone="trash">
+                        <h4>Мусор</h4>
+                        <div class="zone-slots"></div>
+                    </div>
+                </div>
+                <div class="stickers-container" id="stickers-pool"></div>
+                <button class="btn-check" onclick="checkBoard()">ПРОВЕРИТЬ КЛАССИФИКАЦИЮ</button>
+                <div class="feedback" id="board-feedback"></div>
+            </div>
+
+            <!-- Карточка 3: Смета -->
+            <div class="evidence-card hidden" id="card-budget">
+                <h3>Улика #3: Бюджетная смета</h3>
+                <p class="instruction">Восстановите повреждённые данные</p>
+                <div class="budget-questions">
+                    <div class="question">
+                        <label>Месяцев до аудита?</label>
+                        <input type="number" id="budget-months" min="0" max="12">
+                    </div>
+                    <div class="question">
+                        <label>Свободно ОЗУ (Гб)?</label>
+                        <input type="number" id="budget-ram" min="0" max="16">
+                    </div>
+                    <div class="question">
+                        <label>Вкладок (сумма цифр в "20")?</label>
+                        <input type="number" id="budget-tabs" min="0" max="20">
+                    </div>
+                </div>
+                <button class="btn-check" onclick="checkBudget()">ПРОВЕРИТЬ</button>
+                <div class="feedback" id="budget-feedback"></div>
+            </div>
+
+            <!-- Калькулятор MVP -->
+            <div class="mvp-calculator hidden" id="mvp-calculator">
+                <h3>Калькулятор MVP</h3>
+                <div class="scales-container">
+                    <div class="scale" id="scale-budget">
+                        <label>Бюджет</label>
+                        <div class="scale-bar"><div class="scale-fill"></div></div>
+                    </div>
+                    <div class="scale" id="scale-timeline">
+                        <label>Сроки</label>
+                        <div class="scale-bar"><div class="scale-fill"></div></div>
+                    </div>
+                    <div class="scale" id="scale-resources">
+                        <label>Ресурсы</label>
+                        <div class="scale-bar"><div class="scale-fill"></div></div>
+                    </div>
+                </div>
+                <div class="features-pool">
+                    <div class="feature" draggable="true" data-feature="ai">ИИ-генерация</div>
+                    <div class="feature" draggable="true" data-feature="fields">20 полей</div>
+                    <div class="feature" draggable="true" data-feature="local">Локальный сервер</div>
+                    <div class="feature" draggable="true" data-feature="basic">Базовая CRM</div>
+                </div>
+                <div class="feedback" id="mvp-feedback"></div>
+            </div>
+
+            <button class="btn-next hidden" id="act2-next" onclick="goToAct3()">ПЕРЕЙТИ К ЭКСПЕРТИЗЕ</button>
+        </section>
+
+        <!-- Акт 3: Экспертиза -->
+        <section id="act3-screen" class="screen">
+            <div class="act-header">
+                <h2>АКТ 3: ЭКСПЕРТИЗА</h2>
+                <span class="score-display">Баллы: <span id="act3-score">0</span>/5</span>
+            </div>
+
+            <!-- Матрица стейкхолдеров -->
+            <div class="stakeholder-matrix" id="matrix-container">
+                <h3>Матрица стейкхолдеров</h3>
+                <div class="matrix-grid">
+                    <div class="matrix-quadrant" data-v="high" data-i="low">
+                        <span class="quadrant-label">В↑ И↓</span>
+                    </div>
+                    <div class="matrix-quadrant" data-v="high" data-i="high">
+                        <span class="quadrant-label">В↑ И↑</span>
+                    </div>
+                    <div class="matrix-quadrant" data-v="low" data-i="high">
+                        <span class="quadrant-label">В↓ И↑</span>
+                    </div>
+                    <div class="matrix-quadrant" data-v="low" data-i="low">
+                        <span class="quadrant-label">В↓ И↓</span>
+                    </div>
+                </div>
+                <div class="stakeholders-pool">
+                    <div class="stakeholder" draggable="true" data-name="arkady">Аркадий</div>
+                    <div class="stakeholder" draggable="true" data-name="semyon">Семён</div>
+                    <div class="stakeholder" draggable="true" data-name="lenochka">Леночка</div>
+                </div>
+                <button class="btn-check" onclick="checkMatrix()">ПРОВЕРИТЬ</button>
+                <div class="feedback" id="matrix-feedback"></div>
+            </div>
+
+            <!-- Вопросы -->
+            <div class="quiz-container hidden" id="quiz-container">
+                <!-- Вопрос 1 -->
+                <div class="quiz-question" id="q1">
+                    <h4>Вопрос 1: Почему нейросети и 20 полей невозможны? (мультивыбор)</h4>
+                    <div class="options">
+                        <label><input type="checkbox" name="q1" value="a"> А) Они слишком дорогие</label>
+                        <label><input type="checkbox" name="q1" value="b"> Б) Сервер не потянет</label>
+                        <label><input type="checkbox" name="q1" value="c"> В) Заказчик не хочет</label>
+                        <label><input type="checkbox" name="q1" value="g"> Г) Не укладываемся в срок</label>
+                        <label><input type="checkbox" name="q1" value="d"> Д) Превышаем бюджет</label>
+                    </div>
+                    <button class="btn-check" onclick="checkQ1()">ОТВЕТИТЬ</button>
+                    <div class="feedback" id="q1-feedback"></div>
+                </div>
+
+                <!-- Вопрос 2 -->
+                <div class="quiz-question hidden" id="q2">
+                    <h4>Вопрос 2: Критический блокер?</h4>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="a"> А) Отсутствие ИИ</label>
+                        <label><input type="radio" name="q2" value="b"> Б) Слабый сервер + срок</label>
+                        <label><input type="radio" name="q2" value="c"> В) Мало полей</label>
+                    </div>
+                    <button class="btn-check" onclick="checkQ2()">ОТВЕТИТЬ</button>
+                    <div class="feedback" id="q2-feedback"></div>
+                </div>
+
+                <!-- Вопрос 3 -->
+                <div class="quiz-question hidden" id="q3">
+                    <h4>Вопрос 3: Стратегия управления?</h4>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="a"> А) Отказать всем</label>
+                        <label><input type="radio" name="q3" value="b"> Б) Сделать всё как хотят</label>
+                        <label><input type="radio" name="q3" value="c"> В) Баланс: критические требования + 2-3 поля Леночке</label>
+                    </div>
+                    <button class="btn-check" onclick="checkQ3()">ОТВЕТИТЬ</button>
+                    <div class="feedback" id="q3-feedback"></div>
+                </div>
+
+                <!-- Вопрос 4 -->
+                <div class="quiz-question hidden" id="q4">
+                    <h4>Вопрос 4: Решение MVP?</h4>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="a"> А) Облачная CRM с ИИ</label>
+                        <label><input type="radio" name="q4" value="b"> Б) Локальная CRM, 3 месяца, базовый бюджет</label>
+                        <label><input type="radio" name="q4" value="c"> В) Отложить проект</label>
+                    </div>
+                    <button class="btn-check" onclick="checkQ4()">ОТВЕТИТЬ</button>
+                    <div class="feedback" id="q4-feedback"></div>
+                </div>
+            </div>
+
+            <button class="btn-next hidden" id="act3-next" onclick="showResults()">ПОЛУЧИТЬ ВЕРДИКТ</button>
+        </section>
+
+        <!-- Результаты -->
+        <section id="results-screen" class="screen">
+            <div class="verdict-container">
+                <h2>ВЕРДИКТ</h2>
+                <div class="final-score">
+                    <span class="score-number" id="final-score">0</span>
+                    <span class="score-max">/12</span>
+                </div>
+                <div class="grade" id="final-grade">Junior / Саботажник</div>
+                <p class="detective-name" id="result-name"></p>
+                <div class="breakdown">
+                    <p>Акт 1: <span id="score-act1">0</span>/2</p>
+                    <p>Акт 2: <span id="score-act2">0</span>/4</p>
+                    <p>Акт 3: <span id="score-act3">0</span>/5</p>
+                </div>
+                <button class="btn-primary" onclick="location.reload()">НАЧАТЬ ЗАНОВО</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
