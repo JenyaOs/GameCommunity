@@ -81,7 +81,7 @@ export default function Results({ playerName, scores }: ResultsProps) {
                   <div className="flex justify-between items-center">
                     <span className="text-navy/80">Акт 2 — Доска улик</span>
                     <span className={`font-bold ${scores.act2 > 0 ? 'text-green-700' : 'text-red-thread'}`}>
-                      {scores.act2}/4
+                      {scores.act2}/9
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
