@@ -111,7 +111,7 @@ export function Crossword({ onComplete, mode }: CrosswordProps) {
         <div className="page-fade-in">
           {mode === 'office' ? (
             <div className="text-center py-8">
-              <p className="text-navy mb-4">Найдите QR-код «Стенограмма» в офисе и введите ключевое слово:</p>
+              <p className="text-navy mb-4">Найдите постер «Стенограмма» в офисе, решите кроссворд и введите ключевое слово:</p>
               <div className="flex items-center justify-center gap-3">
                 <input
                   type="text"
@@ -260,7 +260,7 @@ export function Cipher({ onComplete, mode }: CipherProps) {
         <TypeWriter
           text={
             mode === 'office'
-              ? 'Найдите QR-код артефакта в офисе и введите трёхзначный код из подсказки.'
+              ? 'Найдите постер с сейфом в офисе и введите трёхзначный код из подсказки.'
               : 'Обнаружен зашифрованный сейф с документами. Подберите трёхзначный код, используя подсказки. Каждая подсказка говорит, сколько цифр угадано и на месте ли они.'
           }
           speed={20}
@@ -272,8 +272,8 @@ export function Cipher({ onComplete, mode }: CipherProps) {
         <div className="page-fade-in">
           {mode === 'office' ? (
             <div className="mb-6 rounded-lg border border-orange/20 bg-orange/5 p-4 text-center">
-              <p className="text-navy text-sm font-bold mb-2">Офисный режим: подставьте код из QR, без лишних подсказок.</p>
-              <p className="text-xs text-gray-det">Сейф не показываем, только ввод кода.</p>
+              <p className="text-navy text-sm font-bold mb-2"></p>
+              <p className="text-xs text-gray-det">Введите код доступа</p>
             </div>
           ) : (
             /* Clues */
