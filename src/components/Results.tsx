@@ -1,5 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import TypeWriter from './TypeWriter';
+import {
+  loadLeaderboard,
+  saveResult,
+  sortLeaderboard,
+  type LeaderboardEntry,
+} from '../utils/leaderboard';
 
 interface ResultsProps {
   playerName: string;
@@ -25,6 +31,19 @@ export default function Results({ playerName, scores }: ResultsProps) {
   const [showDetails, setShowDetails] = useState(false);
   const [showGrade, setShowGrade] = useState(false);
   const [animatedScore, setAnimatedScore] = useState(0);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
+  const [currentEntryId, setCurrentEntryId] = useState<string | null>(null);
+  const savedRef = useRef(false);
+
+  // Persist the player's result once the final grade is revealed.
+  useEffect(() => {
+    if (!showGrade || savedRef.current) return;
+    savedRef.current = true;
+    const entry = saveResult({ name: playerName, score: total, grade: grade.title });
+    setCurrentEntryId(entry.id);
+    setEntries(sortLeaderboard(loadLeaderboard()));
+  }, [showGrade, playerName, total, grade.title]);
 
   useEffect(() => {
     if (!showDetails) return;
@@ -136,17 +155,33 @@ export default function Results({ playerName, scores }: ResultsProps) {
                     <div className="text-xs text-amber-900/50 mt-1">Баллов: {total}/{TOTAL_MAX}</div>
                   </div>
 
-                  <button
-                    onClick={() => window.location.reload()}
-                    className="bg-orange text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-orange-dark transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange/30"
-                  >
-                    🔄 Начать заново
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button
+                      onClick={() => setShowLeaderboard(true)}
+                      className="bg-navy text-cream px-6 py-3 rounded-lg font-bold text-lg hover:bg-navy-light transition-all hover:scale-105 active:scale-95 shadow-lg"
+                    >
+                      🏆 Посмотреть таблицу лидеров
+                    </button>
+                    <button
+                      onClick={() => window.location.reload()}
+                      className="bg-orange text-white px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-dark transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange/30"
+                    >
+                      🔄 Начать заново
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
           )}
         </div>
+
+        {showLeaderboard && (
+          <Leaderboard
+            entries={entries}
+            currentEntryId={currentEntryId}
+            onClose={() => setShowLeaderboard(false)}
+          />
+        )}
 
         {/* Footer */}
         <div className="text-center mt-6 text-cream/30 text-xs">
@@ -154,5 +189,97 @@ export default function Results({ playerName, scores }: ResultsProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+/* ───────── LEADERBOARD ───────── */
+const RANK_CLASS = ['rank-gold', 'rank-silver', 'rank-bronze'];
+const MEDALS = ['🥇', '🥈', '🥉'];
+
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '—';
+  return d.toLocaleString('ru-RU', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+interface LeaderboardProps {
+  entries: LeaderboardEntry[];
+  currentEntryId: string | null;
+  onClose: () => void;
+}
+
+function Leaderboard({ entries, currentEntryId, onClose }: LeaderboardProps) {
+  const top = entries.slice(0, 10);
+  const currentRank = entries.findIndex((e) => e.id === currentEntryId);
+  const currentInTop = top.some((e) => e.id === currentEntryId);
+
+  return (
+    <section id="leaderboard-screen" className="dossier mt-6 page-fade-in">
+      <div className="dossier-header">
+        <div className="text-xs text-orange tracking-[0.3em] uppercase mb-1">Совершенно секретно</div>
+        <h2 className="text-xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>
+          🗂 Досье лучших агентов
+        </h2>
+      </div>
+
+      {top.length === 0 ? (
+        <p className="text-center text-cream/60 py-6 text-sm">Пока нет завершённых расследований.</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="leaderboard-table">
+            <thead>
+              <tr>
+                <th>Место</th>
+                <th className="text-left">Имя детектива</th>
+                <th>Баллы</th>
+                <th className="text-left">Звание</th>
+                <th>Дата</th>
+              </tr>
+            </thead>
+            <tbody>
+              {top.map((entry, i) => (
+                <tr
+                  key={entry.id}
+                  className={`${i < 3 ? RANK_CLASS[i] : ''} ${entry.id === currentEntryId ? 'row-current' : ''}`}
+                >
+                  <td className="text-center font-bold">{i < 3 ? MEDALS[i] : i + 1}</td>
+                  <td>{entry.name}</td>
+                  <td className="text-center font-bold">{entry.score}</td>
+                  <td>{entry.grade}</td>
+                  <td className="text-center whitespace-nowrap text-xs">{formatDate(entry.date)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {currentRank >= 0 && !currentInTop && (
+        <p className="text-center text-cream/70 text-sm mt-3">
+          Ваш результат — <span className="text-orange font-bold">{currentRank + 1}-е место</span> из {entries.length}.
+        </p>
+      )}
+
+      <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
+        <button
+          onClick={() => window.location.reload()}
+          className="bg-orange text-white px-6 py-3 rounded-lg font-bold hover:bg-orange-dark transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange/30"
+        >
+          🔍 Начать новое расследование
+        </button>
+        <button
+          onClick={onClose}
+          className="border-2 border-cream/40 text-cream px-6 py-3 rounded-lg font-bold hover:bg-cream/10 transition-all"
+        >
+          ⬅ Назад к результатам
+        </button>
+      </div>
+    </section>
   );
 }
