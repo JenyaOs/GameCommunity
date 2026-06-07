@@ -157,6 +157,11 @@ export default function Act2({ onComplete, mode }: Act2Props) {
     }
   };
 
+  const goBackToBoard = () => {
+    setBudgetError(false);
+    setPhase('board');
+  };
+
   const handleOfficeBoard = () => {
     if (budgetCode === '422') {
       setBudgetSolved(true);
@@ -474,13 +479,21 @@ export default function Act2({ onComplete, mode }: Act2Props) {
 
           <div className={`text-center mt-6 ${budgetError ? 'phrase-wrong' : ''}`}>
             {!budgetSolved ? (
-              <button
-                onClick={handleBudgetCheck}
-                disabled={budgetAnswers.some((a) => !a)}
-                className="bg-orange text-white px-6 py-2 rounded-lg font-bold hover:bg-orange-dark disabled:opacity-40"
-              >
-                Ввести код сметы 🔑
-              </button>
+              <div className="flex flex-col items-center gap-3">
+                <button
+                  onClick={handleBudgetCheck}
+                  disabled={budgetAnswers.some((a) => !a)}
+                  className="bg-orange text-white px-6 py-2 rounded-lg font-bold hover:bg-orange-dark disabled:opacity-40"
+                >
+                  Ввести код сметы 🔑
+                </button>
+                <button
+                  onClick={goBackToBoard}
+                  className="border-2 border-navy/30 text-navy px-6 py-2 rounded-lg font-bold hover:bg-navy/5"
+                >
+                  ⬅ Вернуться к доске улик
+                </button>
+              </div>
             ) : (
               <div className="page-fade-in">
                 <div className="stamp stamp-appear mb-4">ПОДТВЕРЖДЕНО</div>
