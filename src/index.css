@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0B1D3A;
-  --color-navy-light: #142d54;
-  --color-orange: #F26B21;
-  --color-orange-dark: #d55a15;
-  --color-gray-det: #6B7D8E;
+  --color-navy: #363838;
+  --color-navy-light: #4a4c4d;
+  --color-orange: #BDDC03;
+  --color-orange-dark: #9ab802;
+  --color-gray-det: #656668;
   --color-cream: #F5F0E8;
   --color-cream-dark: #e8e0d0;
   --color-red-thread: #c0392b;
@@ -39,12 +39,12 @@ body {
       0deg,
       transparent,
       transparent 24px,
-      rgba(107,125,142,0.08) 24px,
-      rgba(107,125,142,0.08) 25px
+      rgba(101,102,104,0.08) 24px,
+      rgba(101,102,104,0.08) 25px
     ),
     radial-gradient(ellipse at 20% 50%, rgba(139,90,43,0.04) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 30%, rgba(139,90,43,0.03) 0%, transparent 40%),
-    radial-gradient(circle at 60% 70%, rgba(107,125,142,0.03) 0%, transparent 30%);
+    radial-gradient(circle at 60% 70%, rgba(101,102,104,0.03) 0%, transparent 30%);
   color: var(--color-navy);
   position: relative;
 }
@@ -80,14 +80,14 @@ body {
   box-shadow: 3px 5px 12px rgba(0,0,0,0.25);
 }
 
-.sticker-yellow { background: #fff9c4; color: #333; }
-.sticker-pink { background: #fce4ec; color: #333; }
-.sticker-blue { background: #e3f2fd; color: #333; }
-.sticker-green { background: #e8f5e9; color: #333; }
-.sticker-orange { background: #ffe0b2; color: #333; }
+.sticker-yellow { background: #fff9c4; color: #363838; }
+.sticker-pink { background: #fce4ec; color: #363838; }
+.sticker-blue { background: #e3f2fd; color: #363838; }
+.sticker-green { background: #e8f5e9; color: #363838; }
+.sticker-orange { background: #ffe0b2; color: #363838; }
 .sticker-damaged {
   background: #fff9c4;
-  color: #333;
+  color: #363838;
   position: relative;
   overflow: hidden;
 }
@@ -162,7 +162,7 @@ body {
 
 .crossword-cell:focus {
   border-color: var(--color-orange);
-  background: #fff3e0;
+  background: #f5f9d0;
 }
 
 .crossword-cell.correct {
@@ -230,14 +230,14 @@ body {
 /* Clickable phrase in interview */
 .phrase-clickable {
   cursor: pointer;
-  border-bottom: 2px dashed rgba(242,107,33,0.4);
+  border-bottom: 2px dashed rgba(189,220,3,0.4);
   transition: all 0.2s;
   padding: 1px 3px;
   border-radius: 2px;
 }
 
 .phrase-clickable:hover {
-  background: rgba(242,107,33,0.15);
+  background: rgba(189,220,3,0.15);
   border-bottom-color: var(--color-orange);
 }
 
@@ -261,7 +261,7 @@ body {
 
 /* Drop zones */
 .drop-zone {
-  border: 3px dashed rgba(107,125,142,0.4);
+  border: 3px dashed rgba(101,102,104,0.4);
   border-radius: 8px;
   min-height: 120px;
   padding: 12px;
@@ -270,12 +270,12 @@ body {
 
 .drop-zone.active {
   border-color: var(--color-orange);
-  background: rgba(242,107,33,0.05);
+  background: rgba(189,220,3,0.05);
 }
 
 .drop-zone-hard { border-color: rgba(192,57,43,0.4); }
 .drop-zone-wish { border-color: rgba(41,128,185,0.4); }
-.drop-zone-trash { border-color: rgba(107,125,142,0.4); }
+.drop-zone-trash { border-color: rgba(101,102,104,0.4); }
 
 /* Scale bars */
 .scale-bar {
@@ -307,7 +307,7 @@ body {
 
 /* Stakeholder matrix */
 .matrix-quadrant {
-  border: 2px solid rgba(107,125,142,0.3);
+  border: 2px solid rgba(101,102,104,0.3);
   min-height: 100px;
   padding: 12px;
   transition: all 0.3s;
@@ -320,7 +320,7 @@ body {
 
 .matrix-quadrant.highlight {
   border-color: var(--color-orange);
-  background: rgba(242,107,33,0.05);
+  background: rgba(189,220,3,0.05);
 }
 
 /* Toast notification */
@@ -375,7 +375,7 @@ body {
   justify-content: center;
   font-weight: bold;
   font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(242,107,33,0.4);
+  box-shadow: 0 2px 8px rgba(189,220,3,0.4);
 }
 
 /* Custom scrollbar */
@@ -392,7 +392,7 @@ body {
 
 /* Quiz option */
 .quiz-option {
-  border: 2px solid rgba(107,125,142,0.3);
+  border: 2px solid rgba(101,102,104,0.3);
   border-radius: 8px;
   padding: 12px 16px;
   cursor: pointer;
@@ -402,12 +402,12 @@ body {
 
 .quiz-option:hover {
   border-color: var(--color-orange);
-  background: rgba(242,107,33,0.05);
+  background: rgba(189,220,3,0.05);
 }
 
 .quiz-option.selected {
   border-color: var(--color-orange);
-  background: rgba(242,107,33,0.1);
+  background: rgba(189,220,3,0.1);
 }
 
 .quiz-option.correct {
@@ -494,7 +494,7 @@ body {
 
 /* Glow effect on hover for interactive elements */
 .glow-hover:hover {
-  box-shadow: 0 0 15px rgba(242,107,33,0.3);
+  box-shadow: 0 0 15px rgba(189,220,3,0.3);
 }
 
 /* Pulse animation for important buttons */
@@ -503,8 +503,8 @@ body {
 }
 
 @keyframes pulseBtn {
-  0%, 100% { box-shadow: 0 4px 15px rgba(242,107,33,0.3); }
-  50% { box-shadow: 0 4px 25px rgba(242,107,33,0.6); }
+  0%, 100% { box-shadow: 0 4px 15px rgba(189,220,3,0.3); }
+  50% { box-shadow: 0 4px 25px rgba(189,220,3,0.6); }
 }
 
 /* Film grain overlay */
@@ -525,15 +525,15 @@ html {
 
 /* Selection color */
 ::selection {
-  background: rgba(242,107,33,0.3);
+  background: rgba(189,220,3,0.3);
   color: inherit;
 }
 
 /* ───────── Leaderboard / Secret dossier ───────── */
 .dossier {
   background:
-    linear-gradient(135deg, rgba(242,107,33,0.05) 0%, transparent 40%),
-    #122742;
+    linear-gradient(135deg, rgba(189,220,3,0.05) 0%, transparent 40%),
+    #2d2e2e;
   border: 1px solid rgba(245,240,232,0.12);
   border-radius: 10px;
   padding: 24px;
@@ -594,6 +594,6 @@ html {
   outline-offset: -2px;
 }
 .leaderboard-table tbody tr.row-current td {
-  color: #ffd9c2;
+  color: #e8f5c0;
   font-weight: 700;
 }
