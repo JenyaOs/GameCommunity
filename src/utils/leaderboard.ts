@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/leaderboard';
+const API_URL = 'https://jenyaos-gamecommunity-6f15.twc1.net.timeweb.app/api/leaderboard';
 
 export interface LeaderboardEntry {
   id: string;
