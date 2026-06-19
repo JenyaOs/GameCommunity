@@ -1,0 +1,14 @@
+# Переменные окружения с паролями
+.env
+.env.local
+.env.production
+
+# Зависимости
+node_modules/
+
+# Логи
+*.log
+
+# OS файлы
+.DS_Store
+Thumbs.db
