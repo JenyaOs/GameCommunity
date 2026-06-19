@@ -1,33 +1,24 @@
-// Leaderboard persistence. Currently backed by localStorage as a stand-in DB.
-// TODO: заменить localStorage на fetch POST запрос к реальному API при подключении бэкенда.
-
-export const LEADERBOARD_KEY = 'monolit_leaderboard';
-const MAX_ENTRIES = 50;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/leaderboard';
 
 export interface LeaderboardEntry {
   id: string;
   name: string;
   score: number;
   grade: string;
-  date: string; // ISO timestamp
+  date: string;
 }
 
-export function loadLeaderboard(): LeaderboardEntry[] {
+export async function loadLeaderboard(): Promise<LeaderboardEntry[]> {
   try {
-    const raw = localStorage.getItem(LEADERBOARD_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter(
-      (e): e is LeaderboardEntry =>
-        e && typeof e.name === 'string' && typeof e.score === 'number',
-    );
-  } catch {
+    const res = await fetch(API_URL);
+    if (!res.ok) throw new Error('Не удалось загрузить таблицу');
+    return await res.json();
+  } catch (err) {
+    console.error('Ошибка загрузки таблицы лидеров:', err);
     return [];
   }
 }
 
-// Sort by score desc; on a tie the earlier submission ranks higher.
 export function sortLeaderboard(entries: LeaderboardEntry[]): LeaderboardEntry[] {
   return [...entries].sort((a, b) => {
     if (b.score !== a.score) return b.score - a.score;
@@ -35,33 +26,21 @@ export function sortLeaderboard(entries: LeaderboardEntry[]): LeaderboardEntry[]
   });
 }
 
-export function saveResult(result: {
+export async function saveResult(result: {
   name: string;
   score: number;
   grade: string;
-}): LeaderboardEntry {
-  const entry: LeaderboardEntry = {
-    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    name: result.name.trim() || 'Аноним',
-    score: result.score,
-    grade: result.grade,
-    date: new Date().toISOString(),
-  };
-
-  let entries = loadLeaderboard();
-  entries.push(entry);
-  // Cap storage: drop the oldest entries beyond the limit.
-  if (entries.length > MAX_ENTRIES) {
-    entries = entries
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, MAX_ENTRIES);
-  }
-
+}): Promise<LeaderboardEntry | null> {
   try {
-    localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(entries));
-  } catch {
-    // Storage may be unavailable (private mode / quota) — fail silently.
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(result),
+    });
+    if (!res.ok) throw new Error('Не удалось сохранить результат');
+    return await res.json();
+  } catch (err) {
+    console.error('Ошибка сохранения:', err);
+    return null;
   }
-
-  return entry;
 }
