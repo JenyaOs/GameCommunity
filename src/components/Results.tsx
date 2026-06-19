@@ -37,13 +37,31 @@ export default function Results({ playerName, scores }: ResultsProps) {
   const savedRef = useRef(false);
 
   // Persist the player's result once the final grade is revealed.
-  useEffect(() => {
-    if (!showGrade || savedRef.current) return;
-    savedRef.current = true;
-    const entry = saveResult({ name: playerName, score: total, grade: grade.title });
-    setCurrentEntryId(entry.id);
-    setEntries(sortLeaderboard(loadLeaderboard()));
-  }, [showGrade, playerName, total, grade.title]);
+const [isSaving, setIsSaving] = useState(false);
+const [saveError, setSaveError] = useState(false);
+
+useEffect(() => {
+  if (!showGrade || savedRef.current) return;
+  savedRef.current = true;
+  setIsSaving(true);
+
+  (async () => {
+    const entry = await saveResult({
+      name: playerName,
+      score: total,
+      grade: grade.title,
+    });
+
+    if (entry) {
+      setCurrentEntryId(entry.id);
+      const all = await loadLeaderboard();
+      setEntries(sortLeaderboard(all));
+    } else {
+      setSaveError(true);
+    }
+    setIsSaving(false);
+  })();
+}, [showGrade, playerName, total, grade.title]);
 
   useEffect(() => {
     if (!showDetails) return;
@@ -162,6 +180,7 @@ export default function Results({ playerName, scores }: ResultsProps) {
                     >
                       🏆 Посмотреть таблицу лидеров
                     </button>
+                    
                     <button
                       onClick={() => window.location.reload()}
                       className="bg-orange text-white px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-dark transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange/30"
@@ -174,6 +193,13 @@ export default function Results({ playerName, scores }: ResultsProps) {
             </div>
           )}
         </div>
+        {/* Индикаторы вынесены ОТДЕЛЬНО от кнопок */}
+{isSaving && (
+  <p className="text-cream/60 text-sm mt-4 text-center">⏳ Сохраняем результат...</p>
+)}
+{saveError && (
+  <p className="text-red-400 text-sm mt-4 text-center">⚠ Не удалось сохранить результат</p>
+)}
 
         {showLeaderboard && (
           <Leaderboard
