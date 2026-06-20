@@ -1,4 +1,4 @@
-const API_URL = 'https://jenyaos-gamecommunity-6f15.twc1.net/api/leaderboard';
+const API_URL = 'https://jenyaos-gamecommunity-0520.twc1.net/api/leaderboard';
 
 export interface LeaderboardEntry {
   id: string;
