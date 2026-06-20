@@ -78,7 +78,9 @@ useEffect(() => {
   }, [showDetails, total]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'radial-gradient(ellipse at center, #142d54 0%, #0B1D3A 70%)' }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ 
+  background: `radial-gradient(ellipse at center, var(--color-navy-light) 0%, var(--color-navy) 70%)` 
+}}>
       <div className="max-w-lg w-full">
         {/* Case file */}
         <div className="paper-bg rounded-lg p-6 md:p-8 shadow-2xl">
