@@ -115,7 +115,9 @@ export default function App() {
   const renderGameScreen = (content: React.ReactNode) => (
     <div
       className="min-h-screen py-6 px-4 film-grain"
-      style={{ background: 'radial-gradient(ellipse at center, #142d54 0%, #0B1D3A 70%)' }}
+      style={{ 
+  background: `radial-gradient(ellipse at center, var(--color-navy-light) 0%, var(--color-navy) 70%)` 
+}}
     >
       {/* Top HUD */}
       <div className="max-w-4xl mx-auto mb-4 flex items-center justify-between text-sm text-cream/60">
