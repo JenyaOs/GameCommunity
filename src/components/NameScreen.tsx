@@ -11,7 +11,9 @@ export default function NameScreen({ onStart }: NameScreenProps) {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'radial-gradient(ellipse at center, #142d54 0%, #0B1D3A 70%)' }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ 
+  background: `radial-gradient(ellipse at center, var(--color-navy-light) 0%, var(--color-navy) 70%)` 
+}}>
       <div className="max-w-lg w-full page-fade-in">
         {/* Title */}
         <div className="text-center mb-8">
