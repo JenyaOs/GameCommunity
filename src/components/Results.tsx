@@ -85,12 +85,12 @@ useEffect(() => {
         {/* Case file */}
         <div className="paper-bg rounded-lg p-6 md:p-8 shadow-2xl">
           <div className="text-center mb-6">
-            <div className="text-xs text-gray-det tracking-[0.3em] uppercase mb-2">Дело «Монолит»</div>
+            <div className="text-xs text-navy-det tracking-[0.3em] uppercase mb-2">Дело «Монолит»</div>
             <h1 className="text-2xl font-bold text-navy mb-1" style={{ fontFamily: 'var(--font-display)' }}>
               📁 Дело закрыто
             </h1>
             <div className="h-0.5 w-24 bg-orange mx-auto my-3" />
-            <p className="text-sm text-gray-det">
+            <p className="text-sm text-navy-det">
               <TypeWriter
                 text={`Детектив ${playerName} завершил расследование.`}
                 speed={30}
