@@ -51,7 +51,7 @@ export default function CountdownPage() {
     <div
       className="min-h-screen flex items-center justify-center p-4"
       style={{
-        background: 'radial-gradient(ellipse at center, #142d54 0%, #0B1D3A 70%)',
+        background: `linear-gradient(to right, #1e241e 0%, #2f3d25 40%, #455535 100%)`,
       }}
     >
       <div className="max-w-2xl w-full text-center">
