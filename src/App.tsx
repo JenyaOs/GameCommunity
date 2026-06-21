@@ -5,7 +5,9 @@ import Act2 from './components/Act2';
 import Act3 from './components/Act3';
 import Results from './components/Results';
 import TypeWriter from './components/TypeWriter';
+import CountdownPage from './components/CountdownPage'; // ← ДОБАВИТЬ
 
+  
 type Screen =
   | 'name'
   | 'act1-intro'
@@ -28,6 +30,31 @@ interface GameState {
   };
 }
 
+// Дата открытия игры
+const LAUNCH_DATE = new Date(
+  import.meta.env.VITE_LAUNCH_DATE || '2026-06-26T00:00:00+03:00'
+).getTime();
+
+export default function App() {
+  const [screen, setScreen] = useState<Screen>('name');
+  const [game, setGame] = useState<GameState>({
+    playerName: 'Детектив N13',
+    mode: 'online',
+    scores: { act1Card1: 0, act1Card2: 0, act2: 0, act3: 0 },
+  });
+  const [introReady, setIntroReady] = useState(false);
+
+  // Если сейчас до даты запуска — показываем заглушку
+  if (Date.now() < LAUNCH_DATE) {
+    return <CountdownPage />;
+  }
+
+  const handleStart = useCallback((name: string, mode: 'online' | 'office') => {
+    setGame((g) => ({ ...g, playerName: name, mode }));
+    setScreen('act1-intro');
+    setIntroReady(false);
+  }, []);
+  
 export default function App() {
   const [screen, setScreen] = useState<Screen>('name');
   const [game, setGame] = useState<GameState>({
