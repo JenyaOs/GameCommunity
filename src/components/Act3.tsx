@@ -170,7 +170,7 @@ export default function Act3({ onComplete, mode: _mode }: Act3Props) {
           <div>
             <p className="font-bold text-navy">{q.question}</p>
             {q.multiSelect && (
-              <p className="text-xs text-gray-det mt-1">Выберите несколько вариантов</p>
+              <p className="text-xs text-navy-det mt-1">Выберите несколько вариантов</p>
             )}
           </div>
         </div>
@@ -259,7 +259,7 @@ export default function Act3({ onComplete, mode: _mode }: Act3Props) {
         } ${isCorrectPlacement ? 'bg-green-50 border-green-thread' : ''} ${isWrongPlacement ? 'bg-red-50 border-red-thread' : ''}`}
         onClick={() => handleQuadrantClick(quad)}
       >
-        <div className="text-xs text-gray-det text-center mb-1">{label}</div>
+        <div className="text-xs text-navy-det text-center mb-1">{label}</div>
         <div className="text-[10px] text-navy/50 text-center mb-2">{strategy}</div>
         {person && (
           <div className="bg-white rounded px-3 py-1.5 shadow-sm text-center page-fade-in">
@@ -311,7 +311,7 @@ export default function Act3({ onComplete, mode: _mode }: Act3Props) {
       {/* MATRIX */}
       {phase === 'matrix' && (
         <>
-          <div className="text-sm text-gray-det mb-4">
+          <div className="text-sm text-navy-det mb-4">
             <TypeWriter
               text="Постройте матрицу стейкхолдеров. Определите уровень влияния и интереса каждого участника. Кликните на персонажа, затем на нужный квадрант."
               speed={20}
