@@ -79,7 +79,7 @@ export default function App() {
   ) => (
     <div
       className="min-h-screen flex items-center justify-center p-4"
-      style={{ background: 'radial-gradient(ellipse at center, #142d54 0%, #0B1D3A 70%)' }}
+      style={{ background: 'linear-gradient(to right, #1e241e 0%, #2f3d25 40%, #455535 100%)'}}
     >
       <div className="max-w-lg w-full text-center page-fade-in">
         {/* Top bar */}
