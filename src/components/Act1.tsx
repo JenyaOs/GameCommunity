@@ -99,7 +99,7 @@ export function Crossword({ onComplete, mode }: CrosswordProps) {
         </h2>
       </div>
 
-      <div className="text-sm text-gray-det mb-6">
+      <div className="text-sm text-navy-det mb-6">
         <TypeWriter
           text="На столе обнаружена стенограмма с пропущенными словами. Заполните кроссворд — ключевое слово по вертикали откроет следующую улику."
           speed={20}
@@ -172,7 +172,7 @@ export function Crossword({ onComplete, mode }: CrosswordProps) {
 
               {/* Key word display */}
               <div className="text-center mt-4">
-                <div className="text-sm text-gray-det mb-1">Ключевое слово (столбец 1):</div>
+                <div className="text-sm text-navy-det mb-1">Ключевое слово (столбец 1):</div>
                 <div className={`text-2xl font-bold tracking-[0.5em] ${isKeyCorrect ? 'text-green-thread' : 'text-navy/40'}`}>
                   {keyWord || '____'}
                 </div>
@@ -185,7 +185,7 @@ export function Crossword({ onComplete, mode }: CrosswordProps) {
             <div className="mt-6 text-center page-fade-in">
               <div className="stamp stamp-appear mb-4">РАЗГАДАНО</div>
               <p className="text-green-700 font-bold mb-2">🔑 Ключевое слово: ДЕЛО</p>
-              <p className="text-sm text-gray-det mb-4">+1 балл за разгаданную стенограмму</p>
+              <p className="text-sm text-navy-det mb-4">+1 балл за разгаданную стенограмму</p>
               <button
                 onClick={() => onComplete(1)}
                 className="bg-orange text-white px-6 py-2 rounded-lg font-bold hover:bg-orange-dark transition-all"
@@ -256,7 +256,7 @@ export function Cipher({ onComplete, mode }: CipherProps) {
         </h2>
       </div>
 
-      <div className="text-sm text-gray-det mb-6">
+      <div className="text-sm text-navy-det mb-6">
         <TypeWriter
           text={
             mode === 'office'
@@ -273,7 +273,7 @@ export function Cipher({ onComplete, mode }: CipherProps) {
           {mode === 'office' ? (
             <div className="mb-6 rounded-lg border border-orange/20 bg-orange/5 p-4 text-center">
               <p className="text-navy text-sm font-bold mb-2"></p>
-              <p className="text-xs text-gray-det">Введите код доступа</p>
+              <p className="text-xs text-navy-det">Введите код доступа</p>
             </div>
           ) : (
             /* Clues */
@@ -297,7 +297,7 @@ export function Cipher({ onComplete, mode }: CipherProps) {
 
           {/* Code input */}
           <div className="text-center mb-4">
-            <div className="text-sm text-gray-det mb-3">Введите код:</div>
+            <div className="text-sm text-navy-det mb-3">Введите код:</div>
             <div className={`inline-flex gap-2 ${error ? 'phrase-wrong' : ''}`}>
               {digits.map((d, i) => (
                 <input
@@ -336,7 +336,7 @@ export function Cipher({ onComplete, mode }: CipherProps) {
             <div className="mt-6 text-center page-fade-in">
               <div className="stamp stamp-appear mb-4">ВСКРЫТО</div>
               <p className="text-green-700 font-bold mb-2">🔑 Код сейфа: 829</p>
-              <p className="text-sm text-gray-det mb-4">+1 балл за разгаданный артефакт</p>
+              <p className="text-sm text-navy-det mb-4">+1 балл за разгаданный артефакт</p>
               <button
                 onClick={() => onComplete(1)}
                 className="bg-orange text-white px-6 py-2 rounded-lg font-bold hover:bg-orange-dark transition-all"
