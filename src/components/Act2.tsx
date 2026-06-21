@@ -442,7 +442,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
               Карточка №3: Бюджетная смета
             </h3>
           </div>
-          <p className="text-sm text-gray-det mb-6">
+          <p className="text-sm text-navy-det mb-6">
             Чтобы восстановить повреждённый стикер, ответьте на три вопроса. Ответы — цифры из уже найденных улик.
           </p>
 
@@ -455,7 +455,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
               <div key={i} className="bg-cream-dark/50 rounded-lg p-4">
                 <p className="text-sm text-navy font-bold mb-1">{item.q}</p>
                 {(i !== 2 || mode === 'office') && (
-                  <p className="text-xs text-gray-det mb-2">💡 Подсказка: {item.hint}</p>
+                  <p className="text-xs text-navy-det mb-2">💡 Подсказка: {item.hint}</p>
                 )}
                 <input
                   type="text"
@@ -518,7 +518,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
           <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'var(--font-display)' }}>
             📊 Классификация улик
           </h3>
-          <p className="text-sm text-gray-det mb-4">
+          <p className="text-sm text-navy-det mb-4">
             Кликните на стикер, затем на нужную зону. Распределите все улики.
           </p>
 
@@ -559,7 +559,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
             >
               <div className="text-center">
                 <div className="text-red-thread font-bold text-sm mb-2">🔴 Жёсткие требования</div>
-                <div className="text-xs text-gray-det">Обязательно в MVP</div>
+                <div className="text-xs text-navy-det">Обязательно в MVP</div>
                 <div className="mt-2 flex flex-wrap gap-1 justify-center">
                   {stickers.filter((s) => s.found && zones[s.id] === 'hard').map((s) => (
                     <span key={s.id} className="text-xs bg-red-100 px-2 py-1 rounded">{s.text}</span>
@@ -573,7 +573,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
             >
               <div className="text-center">
                 <div className="text-blue-600 font-bold text-sm mb-2">🔵 Пожелания</div>
-                <div className="text-xs text-gray-det">Хорошо бы, но не критично</div>
+                <div className="text-xs text-navy-det">Хорошо бы, но не критично</div>
                 <div className="mt-2 flex flex-wrap gap-1 justify-center">
                   {stickers.filter((s) => s.found && zones[s.id] === 'wish').map((s) => (
                     <span key={s.id} className="text-xs bg-blue-100 px-2 py-1 rounded">{s.text}</span>
@@ -586,8 +586,8 @@ export default function Act2({ onComplete, mode }: Act2Props) {
               onClick={() => handleZoneClick('trash')}
             >
               <div className="text-center">
-                <div className="text-gray-det font-bold text-sm mb-2">⚫ Мусор</div>
-                <div className="text-xs text-gray-det">Не относится к делу</div>
+                <div className="text-navy-det font-bold text-sm mb-2">⚫ Мусор</div>
+                <div className="text-xs text-navy-det">Не относится к делу</div>
                 <div className="mt-2 flex flex-wrap gap-1 justify-center">
                   {stickers.filter((s) => s.found && zones[s.id] === 'trash').map((s) => (
                     <span key={s.id} className="text-xs bg-gray-200 px-2 py-1 rounded">{s.text}</span>
@@ -629,7 +629,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
               ))}
             </div>
             <div className="bg-gray-100 rounded-lg p-3">
-              <div className="font-bold text-gray-det mb-1">⚫ Мусор (0)</div>
+              <div className="font-bold text-navy-det mb-1">⚫ Мусор (0)</div>
               <div className="text-xs text-navy/40">Пусто</div>
             </div>
           </div>
@@ -648,7 +648,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
           <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'var(--font-display)' }}>
             ⚖️ Калькулятор MVP
           </h3>
-          <p className="text-sm text-gray-det mb-4">
+          <p className="text-sm text-navy-det mb-4">
             Переключайте фичи и смотрите, как они влияют на ресурсы. «20 полей» и «ИИ» ломают баланс!
           </p>
 
@@ -685,7 +685,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
                   onClick={() => toggleMvpFeature(s.id)}
                 >
                   <div className={`w-5 h-5 rounded border-2 flex items-center justify-center text-xs ${
-                    isOn ? (isWish ? 'bg-red-thread border-red-thread text-white' : 'bg-green-thread border-green-thread text-white') : 'border-gray-det'
+                    isOn ? (isWish ? 'bg-red-thread border-red-thread text-white' : 'bg-green-thread border-green-thread text-white') : 'border-navy-det'
                   }`}>
                     {isOn && '✓'}
                   </div>
