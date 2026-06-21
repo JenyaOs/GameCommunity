@@ -116,7 +116,7 @@ export default function App() {
     <div
       className="min-h-screen py-6 px-4 film-grain"
       style={{ 
-  background: `radial-gradient(ellipse at center, var(--color-navy-light) 0%, var(--color-navy) 70%)` 
+  background: `linear-gradient(to right, #1e241e 0%, #2f3d25 40%, #455535 100%)` 
 }}
     >
       {/* Top HUD */}
