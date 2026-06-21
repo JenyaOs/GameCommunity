@@ -5,9 +5,8 @@ import Act2 from './components/Act2';
 import Act3 from './components/Act3';
 import Results from './components/Results';
 import TypeWriter from './components/TypeWriter';
-import CountdownPage from './components/CountdownPage'; // ← ДОБАВИТЬ
+import CountdownPage from './components/CountdownPage';
 
-  
 type Screen =
   | 'name'
   | 'act1-intro'
@@ -54,21 +53,6 @@ export default function App() {
     setScreen('act1-intro');
     setIntroReady(false);
   }, []);
-  
-export default function App() {
-  const [screen, setScreen] = useState<Screen>('name');
-  const [game, setGame] = useState<GameState>({
-    playerName: 'Детектив N13',
-    mode: 'online',
-    scores: { act1Card1: 0, act1Card2: 0, act2: 0, act3: 0 },
-  });
-  const [introReady, setIntroReady] = useState(false);
-
-  const handleStart = useCallback((name: string, mode: 'online' | 'office') => {
-    setGame((g) => ({ ...g, playerName: name, mode }));
-    setScreen('act1-intro');
-    setIntroReady(false);
-  }, []);
 
   const handleAct1Card1 = useCallback((pts: number) => {
     setGame((g) => ({ ...g, scores: { ...g.scores, act1Card1: pts } }));
@@ -106,7 +90,7 @@ export default function App() {
   ) => (
     <div
       className="min-h-screen flex items-center justify-center p-4"
-      style={{ background: 'linear-gradient(to right, #1e241e 0%, #2f3d25 40%, #455535 100%)'}}
+      style={{ background: 'linear-gradient(to right, #1e241e 0%, #2f3d25 40%, #455535 100%)' }}
     >
       <div className="max-w-lg w-full text-center page-fade-in">
         {/* Top bar */}
@@ -117,7 +101,10 @@ export default function App() {
 
         <div className="text-6xl mb-4">{emoji}</div>
         <div className="text-xs text-orange tracking-[0.3em] uppercase mb-2">Акт {actNum}</div>
-        <h2 className="text-3xl font-bold text-cream mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+        <h2
+          className="text-3xl font-bold text-cream mb-3"
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
           {title}
         </h2>
         <div className="h-0.5 w-20 bg-orange mx-auto mb-4" />
@@ -142,9 +129,7 @@ export default function App() {
   const renderGameScreen = (content: React.ReactNode) => (
     <div
       className="min-h-screen py-6 px-4 film-grain"
-      style={{ 
-  background: `linear-gradient(to right, #1e241e 0%, #2f3d25 40%, #455535 100%)` 
-}}
+      style={{ background: 'linear-gradient(to right, #1e241e 0%, #2f3d25 40%, #455535 100%)' }}
     >
       {/* Top HUD */}
       <div className="max-w-4xl mx-auto mb-4 flex items-center justify-between text-sm text-cream/60">
