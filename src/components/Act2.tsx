@@ -335,7 +335,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
         <h2 className="text-xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>
           Акт 2: Доска улик
         </h2>
-        <span className="ml-auto text-sm text-gray-det">
+        <span className="ml-auto text-sm text-navy-det">
           Найдено улик: {foundCount}/{stickers.length}
         </span>
       </div>
@@ -343,7 +343,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
       {/* ─── PHASE: BOARD ─── */}
       {phase === 'board' && (
         <>
-          <div className="text-sm text-gray-det mb-4">
+          <div className="text-sm text-navy-det mb-4">
             <TypeWriter
               text="Изучите показания свидетелей. Кликните на ключевые фразы — они станут уликами на доске. Осторожно: не всё, что говорят, важно для дела!"
               speed={20}
@@ -358,7 +358,7 @@ export default function Act2({ onComplete, mode }: Act2Props) {
                   <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div>
                       <p className="text-navy font-bold text-sm mb-1">Офисный режим</p>
-                      <p className="text-xs text-gray-det">Кликайте по фразам в текстах и вводите код сметы из QR.</p>
+                      <p className="text-xs text-navy-det">Кликайте по фразам в текстах и вводите код сметы из QR.</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <input
