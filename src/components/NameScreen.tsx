@@ -9,6 +9,17 @@ export default function NameScreen({ onStart }: NameScreenProps) {
   const [name, setName] = useState('');
   const [mode, setMode] = useState<'online' | 'office'>('online');
   const [showForm, setShowForm] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handleStart = () => {
+    const trimmedName = name.trim();
+    if (!trimmedName) {
+      setError(true);
+      return;
+    }
+    setError(false);
+    onStart(trimmedName, mode);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4" style={{ 
@@ -51,12 +62,22 @@ export default function NameScreen({ onStart }: NameScreenProps) {
                   <input
                     type="text"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Детектив N13"
-                    className="w-full bg-cream/80 border-2 border-amber-800/30 rounded px-3 py-2 text-amber-900 font-bold text-center focus:outline-none focus:border-orange"
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      if (error) setError(false);
+                    }}
+                    placeholder="Введите имя детектива"
+                    className={`w-full bg-cream/80 border-2 rounded px-3 py-2 text-amber-900 font-bold text-center focus:outline-none ${
+                      error ? 'border-red-500' : 'border-amber-800/30 focus:border-orange'
+                    }`}
                     style={{ fontFamily: 'var(--font-typewriter)' }}
                     maxLength={30}
                   />
+                  {error && (
+                    <div className="text-red-600 text-xs mt-1 text-center">
+                      Пожалуйста, введите имя детектива
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="text-xs text-amber-900/50">Бюро аналитики • {new Date().getFullYear()}</div>
@@ -89,7 +110,7 @@ export default function NameScreen({ onStart }: NameScreenProps) {
             {/* Start button */}
             <div className="text-center">
               <button
-                onClick={() => onStart(name.trim() || 'Детектив N13', mode)}
+                onClick={handleStart}
                 className="bg-orange hover:bg-orange-dark text-white px-8 py-3 rounded-lg font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange/30"
               >
                 Открыть дело 📁
